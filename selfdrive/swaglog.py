@@ -3,7 +3,7 @@ import logging
 
 import zmq
 
-from common.logging_extra import SwagLogger, SwagFormatter
+from .common.logging_extra import SwagLogger, SwagFormatter
 
 class LogMessageHandler(logging.Handler):
   def __init__(self, formatter):

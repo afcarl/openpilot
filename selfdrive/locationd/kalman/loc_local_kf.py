@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import numpy as np
-import loc_local_model
+from . import loc_local_model
 
-from kalman_helpers import ObservationKind
-from ekf_sym import EKF_sym
+from .kalman_helpers import ObservationKind
+from .ekf_sym import EKF_sym
 
 
 

@@ -1,5 +1,5 @@
-from maneuverplots import ManeuverPlot
-from plant import Plant
+from .maneuverplots import ManeuverPlot
+from .plant import Plant
 import numpy as np
 
 

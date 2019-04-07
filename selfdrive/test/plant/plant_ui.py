@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import pygame
-from plant import Plant
+from .plant import Plant
 from selfdrive.car.honda.values import CruiseButtons
 import numpy as np
 import selfdrive.messaging as messaging

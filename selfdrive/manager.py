@@ -6,7 +6,7 @@ import errno
 import signal
 import subprocess
 
-from common.basedir import BASEDIR
+from .common.basedir import BASEDIR
 sys.path.append(os.path.join(BASEDIR, "pyextra"))
 os.environ['BASEDIR'] = BASEDIR
 
@@ -71,7 +71,7 @@ from multiprocessing import Process
 import zmq
 from setproctitle import setproctitle  #pylint: disable=no-name-in-module
 
-from common.params import Params
+from .common.params import Params
 import cereal
 ThermalStatus = cereal.log.ThermalData.ThermalStatus
 

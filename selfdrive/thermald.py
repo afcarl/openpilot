@@ -8,10 +8,10 @@ from selfdrive.swaglog import cloudlog
 import selfdrive.messaging as messaging
 from selfdrive.services import service_list
 from selfdrive.loggerd.config import ROOT
-from common.params import Params
-from common.realtime import sec_since_boot
-from common.numpy_fast import clip
-from common.filter_simple import FirstOrderFilter
+from .common.params import Params
+from .common.realtime import sec_since_boot
+from .common.numpy_fast import clip
+from .common.filter_simple import FirstOrderFilter
 
 ThermalStatus = log.ThermalData.ThermalStatus
 CURRENT_TAU = 2.   # 2s time constant

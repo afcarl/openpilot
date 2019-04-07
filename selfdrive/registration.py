@@ -3,8 +3,8 @@ import subprocess
 
 from selfdrive.swaglog import cloudlog
 from selfdrive.version import version, training_version
-from common.api import api_get
-from common.params import Params
+from .common.api import api_get
+from .common.params import Params
 
 def get_imei():
   ret = subprocess.check_output(["getprop", "oem.device.imeicache"]).strip()
