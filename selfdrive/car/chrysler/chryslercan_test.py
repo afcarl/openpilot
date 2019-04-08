@@ -1,6 +1,6 @@
-from . import chryslercan
-from .values import CAR
-from .carcontroller import CarController
+from selfdrive.car.chrysler import chryslercan
+from selfdrive.car.chrysler.values import CAR
+from selfdrive.car.chrysler.carcontroller import CarController
 from selfdrive.can.packer import CANPacker
 
 from cereal import car
