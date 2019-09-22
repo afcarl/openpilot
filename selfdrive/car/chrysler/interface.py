@@ -10,6 +10,11 @@ from selfdrive.car import STD_CARGO_KG, scale_rot_inertia, scale_tire_stiffness
 GearShifter = car.CarState.GearShifter
 ButtonType = car.CarState.ButtonEvent.Type
 
+# Logic in update() relies on these values being different.
+MIN_STEER_SPEED = 3.8  # m/s
+HIGH_MIN_2019 = 17.5  # m/s minimum for steering engage on 2019.
+LOW_MIN_2019 = 13.5  # m/s minimum after already engaged on 2019.
+
 class CarInterface(object):
   def __init__(self, CP, CarController):
     self.CP = CP
@@ -70,11 +75,10 @@ class CarInterface(object):
     ret.centerToFront = ret.wheelbase * 0.44
 
 
-    ret.minSteerSpeed = 3.8  # m/s
+    ret.minSteerSpeed = MIN_STEER_SPEED  # m/s
     ret.minEnableSpeed = -1.   # enable is done by stock ACC, so ignore this
     if candidate in (CAR.PACIFICA_2019_HYBRID, CAR.JEEP_CHEROKEE_2019):
-      ret.minSteerSpeed = 17.5  # m/s 17 on the way up, 13 on the way down once engaged.
-      # TODO allow 2019 cars to steer down to 13 m/s if already engaged.
+      ret.minSteerSpeed = HIGH_MIN_2019  # m/s 17 on the way up, 13 on the way down once engaged.
 
     # TODO: get actual value, for now starting with reasonable value for
     # civic and scaling by mass and wheelbase
@@ -157,6 +161,11 @@ class CarInterface(object):
 
     # cruise state
     ret.cruiseState.enabled = self.CS.pcm_acc_status  # same as main_on
+    if self.CP.minSteerSpeed in (LOW_MIN_2019, HIGH_MIN_2019):
+      if ret.cruiseState.enabled and self.CS.v_ego > HIGH_MIN_2019:
+        self.CP.minSteerSpeed = LOW_MIN_2019
+      if self.CS.v_ego < LOW_MIN_2019:
+        self.CP.minSteerSpeed = HIGH_MIN_2019
     ret.cruiseState.speed = self.CS.v_cruise_pcm * CV.KPH_TO_MS
     ret.cruiseState.available = self.CS.main_on
     ret.cruiseState.speedOffset = 0.
